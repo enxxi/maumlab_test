@@ -30,6 +30,10 @@ export class SurveyRepository extends Repository<Survey> {
     return await this.find();
   }
 
+  async findCompletedSurveys(): Promise<Survey[]> {
+    return await this.find({ where: { isCompleted: true } });
+  }
+
   async findByIdWithQuestions(id: number): Promise<Survey> {
     const survey = await this.findOne({
       where: { id },

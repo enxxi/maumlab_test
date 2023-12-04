@@ -4,7 +4,14 @@
 
 type Response {
   id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
 }
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
 
 type Option {
   id: ID!
@@ -23,19 +30,17 @@ type Survey {
   id: ID!
   title: String!
   description: String!
+  isCompleted: Boolean!
   created_at: DateTime!
   updated_at: DateTime!
   questions: [Question!]!
 }
 
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
-
 type Query {
   surveys: [Survey!]!
+  completedSurveys: [Survey!]!
   survey(id: Int!): Survey!
+  getSurveyScore(id: Int!): Int!
   questions: [Question!]!
   question(id: Int!): Question!
   options: [Option!]!
@@ -68,6 +73,7 @@ input UpdateSurveyInput {
   title: String
   description: String
   id: Int!
+  isCompleted: Boolean!
 }
 
 input CreateQuestionInput {

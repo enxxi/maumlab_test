@@ -44,4 +44,11 @@ export class QuestionRepository extends Repository<Question> {
   async deleteQuestion(id: number) {
     return await this.delete(id);
   }
+
+  async findBySurveyId(surveyId: number) {
+    return this.createQueryBuilder('question')
+      .innerJoinAndSelect('question.survey', 'survey')
+      .where('survey.id = :surveyId', { surveyId })
+      .getMany();
+  }
 }
