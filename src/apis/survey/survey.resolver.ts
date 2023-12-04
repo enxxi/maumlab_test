@@ -12,28 +12,31 @@ export class SurveyResolver {
   async createSurvey(
     @Args('createSurveyInput') createSurveyInput: CreateSurveyInput,
   ) {
-    return this.surveyService.create(createSurveyInput);
+    return await this.surveyService.createSurvey(createSurveyInput);
   }
 
-  @Query(() => [Survey], { name: 'survey' })
-  findAll() {
-    return this.surveyService.findAll();
+  @Query(() => [Survey], { name: 'surveys' })
+  async findAllSurveys() {
+    return await this.surveyService.findAllSurveys();
   }
 
   @Query(() => Survey, { name: 'survey' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.surveyService.findOne(id);
+  findSurvey(@Args('id', { type: () => Int }) id: number) {
+    return this.surveyService.findSurvey(id);
   }
 
   @Mutation(() => Survey)
-  updateSurvey(
+  async updateSurvey(
     @Args('updateSurveyInput') updateSurveyInput: UpdateSurveyInput,
   ) {
-    return this.surveyService.update(updateSurveyInput.id, updateSurveyInput);
+    return await this.surveyService.updateSurvey(
+      updateSurveyInput.id,
+      updateSurveyInput,
+    );
   }
 
   @Mutation(() => Survey)
-  removeSurvey(@Args('id', { type: () => Int }) id: number) {
-    return this.surveyService.remove(id);
+  async deleteSurvey(@Args('id', { type: () => Int }) id: number) {
+    return await this.surveyService.deleteSurvey(id);
   }
 }

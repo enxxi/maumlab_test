@@ -1,10 +1,13 @@
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { Module } from '@nestjs/common';
+import { Module, Logger } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { SurveyModule } from './apis/survey/survey.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeORMConfig } from './config/typeorm.config';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { QuestionModule } from './apis/question/question.module';
+import { OptionModule } from './apis/option/option.module';
+import { ResponseModule } from './apis/response/response.module';
 
 @Module({
   imports: [
@@ -24,6 +27,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       autoSchemaFile: 'src/utils/graphql/schema.gql',
     }),
     SurveyModule,
+    QuestionModule,
+    // OptionModule,
+    // ResponseModule,
   ],
 })
 export class AppModule {}

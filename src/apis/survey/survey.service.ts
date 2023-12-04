@@ -1,26 +1,93 @@
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+  Logger,
+} from '@nestjs/common';
 import { CreateSurveyInput } from './dto/create-survey.input';
 import { UpdateSurveyInput } from './dto/update-survey.input';
+import { InjectRepository } from '@nestjs/typeorm';
+import { SurveyRepository } from './survey.repository';
 
 @Injectable()
 export class SurveyService {
-  create(createSurveyInput: CreateSurveyInput) {
-    return 'This action adds a new survey';
+  private readonly logger = new Logger(SurveyService.name);
+
+  constructor(
+    @InjectRepository(SurveyRepository)
+    private surveyRepository: SurveyRepository,
+  ) {}
+
+  async createSurvey(createSurveyInput: CreateSurveyInput) {
+    try {
+      return await this.surveyRepository.createSurvey(createSurveyInput);
+    } catch (error) {
+      this.logger.error(`${error}`);
+
+      throw new InternalServerErrorException('설문지 생성에 실패하였습니다.');
+    }
   }
 
-  findAll() {
-    return `This action returns all survey`;
+  async findAllSurveys() {
+    try {
+      return await this.surveyRepository.findAllSurveys();
+    } catch (error) {
+      this.logger.error(`${error}`);
+
+      throw new InternalServerErrorException(
+        '설문지 목록 조회에 실패했습니다.',
+      );
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} survey`;
+  async findSurvey(id: number) {
+    try {
+      return await this.surveyRepository.findById(id);
+    } catch (error) {
+      this.logger.error(`${error}`);
+
+      throw new InternalServerErrorException('설문지 조회에 실패했습니다.');
+    }
   }
 
-  update(id: number, updateSurveyInput: UpdateSurveyInput) {
-    return `This action updates a #${id} survey`;
+  async updateSurvey(id: number, updateSurveyInput: UpdateSurveyInput) {
+    try {
+      const survey = await this.checkSurvey(id);
+
+      await this.surveyRepository.updateSurvey(survey, updateSurveyInput);
+
+      return { message: '설문지 수정에 성공하였습니다.' };
+    } catch (error) {
+      this.logger.error(`${error}`);
+
+      if (error instanceof NotFoundException) {
+        throw error;
+      } else {
+        throw new InternalServerErrorException('설문지 수정에 실패하였습니다.');
+      }
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} survey`;
+  async deleteSurvey(id: number) {
+    try {
+      await this.checkSurvey(id);
+      return { message: '설문지 삭제에 성공하였습니다.' };
+    } catch (error) {
+      this.logger.error(`${error}`);
+
+      if (error instanceof NotFoundException) {
+        throw error;
+      } else {
+        throw new InternalServerErrorException('설문지 삭제에 실패하였습니다.');
+      }
+    }
+  }
+
+  async checkSurvey(id) {
+    const survey = await this.surveyRepository.findById(id);
+    if (!survey) {
+      throw new NotFoundException('해당 id의 설문지를 찾을 수 없습니다.');
+    }
+    return survey;
   }
 }

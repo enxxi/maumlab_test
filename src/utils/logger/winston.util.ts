@@ -4,6 +4,7 @@ import * as winston from 'winston';
 import * as moment from 'moment-timezone';
 
 const env = process.env.NODE_ENV;
+console.log(env);
 
 const appendTimestamp = winston.format((info, opts) => {
   if (opts.tz) {
@@ -20,7 +21,7 @@ const dailyOptions = {
   filename: 'app.log.%DATE%',
   maxFiles: 30,
   zippedArchive: true,
-  colorize: false,
+  colorize: true,
   handleExceptions: true,
   json: false,
 };
@@ -29,7 +30,7 @@ export const winstonLogger = WinstonModule.createLogger({
   transports: [
     //콘솔 출력 옵션 지정
     new winston.transports.Console({
-      level: env === 'production' ? 'http' : 'silly',
+      level: env === 'production' ? 'info' : 'silly',
       format:
         env === 'production'
           ? winston.format.simple()
