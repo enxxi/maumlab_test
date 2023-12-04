@@ -2,15 +2,21 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Response {
+  id: ID!
+}
+
 type Option {
   id: ID!
   content: String!
   score: Float!
+  responses: [Response!]!
 }
 
 type Question {
   id: ID!
   content: String!
+  options: [Option!]!
 }
 
 type Survey {
@@ -34,6 +40,8 @@ type Query {
   question(id: Int!): Question!
   options: [Option!]!
   option(id: Int!): Option!
+  responses: [Response!]!
+  response(id: Int!): Response!
 }
 
 type Mutation {
@@ -45,7 +53,10 @@ type Mutation {
   deleteQuestion(id: Int!): Question!
   createOption(createOptionInput: CreateOptionInput!): Option!
   updateOption(updateOptionInput: UpdateOptionInput!): Option!
-  removeOption(id: Int!): Option!
+  deleteOption(id: Int!): Option!
+  createResponse(optionId: Int!): Response!
+  updateResponse(id: Int!, optionId: Int!): Response!
+  deleteResponse(id: Int!): Response!
 }
 
 input CreateSurveyInput {
