@@ -2,6 +2,12 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Option {
+  id: ID!
+  content: String!
+  score: Float!
+}
+
 type Question {
   id: ID!
   content: String!
@@ -24,7 +30,10 @@ scalar DateTime
 type Query {
   surveys: [Survey!]!
   survey(id: Int!): Survey!
+  questions: [Question!]!
   question(id: Int!): Question!
+  options: [Option!]!
+  option(id: Int!): Option!
 }
 
 type Mutation {
@@ -33,7 +42,10 @@ type Mutation {
   deleteSurvey(id: Int!): Survey!
   createQuestion(createQuestionInput: CreateQuestionInput!): Question!
   updateQuestion(updateQuestionInput: UpdateQuestionInput!): Question!
-  removeQuestion(id: Int!): Question!
+  deleteQuestion(id: Int!): Question!
+  createOption(createOptionInput: CreateOptionInput!): Option!
+  updateOption(updateOptionInput: UpdateOptionInput!): Option!
+  removeOption(id: Int!): Option!
 }
 
 input CreateSurveyInput {
@@ -44,16 +56,45 @@ input CreateSurveyInput {
 input UpdateSurveyInput {
   title: String
   description: String
-  id: Float!
+  id: Int!
 }
 
 input CreateQuestionInput {
+  """문항의 내용"""
   content: String!
-  surveyId: Float!
+
+  """설문지의 id"""
+  surveyId: Int!
 }
 
 input UpdateQuestionInput {
+  """문항의 내용"""
   content: String
-  surveyId: Float
+
+  """설문지의 id"""
+  surveyId: Int
+  id: Int!
+}
+
+input CreateOptionInput {
+  """선택지의 내용"""
+  content: String!
+
+  """선택지의 점수"""
+  score: Int!
+
+  """문항의 id"""
+  questionId: Int!
+}
+
+input UpdateOptionInput {
+  """선택지의 내용"""
+  content: String
+
+  """선택지의 점수"""
+  score: Int
+
+  """문항의 id"""
+  questionId: Int
   id: Int!
 }
