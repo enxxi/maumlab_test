@@ -1,6 +1,5 @@
 import { Option } from 'src/apis/option/entities/option.entity';
 import {
-  Column,
   Entity,
   PrimaryGeneratedColumn,
   CreateDateColumn,

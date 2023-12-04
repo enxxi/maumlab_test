@@ -1,9 +1,4 @@
-import {
-  Injectable,
-  Logger,
-  NotFoundException,
-  InternalServerErrorException,
-} from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { CreateOptionInput } from './dto/create-option.input';
 import { UpdateOptionInput } from './dto/update-option.input';
 import { OptionRepository } from './option.repository';
@@ -78,21 +73,5 @@ export class OptionService {
     } catch (error) {
       handleServiceError(this.logger, error, '선택지 삭제에 실패했습니다.');
     }
-  }
-
-  private async checkQuestion(id) {
-    const question = await this.questionRepository.findById(id);
-    if (!question) {
-      throw new NotFoundException('해당 id의 질문을 찾을 수 없습니다.');
-    }
-    return question;
-  }
-
-  private async checkOption(id) {
-    const option = await this.optionRepository.findById(id);
-    if (!option) {
-      throw new NotFoundException('해당 id의 선택지를 찾을 수 없습니다.');
-    }
-    return option;
   }
 }
