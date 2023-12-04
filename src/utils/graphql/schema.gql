@@ -2,28 +2,110 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Survey {
-  """Example field (placeholder)"""
-  exampleField: Int!
+type Response {
+  id: ID!
 }
 
+type Option {
+  id: ID!
+  content: String!
+  score: Float!
+  responses: [Response!]!
+}
+
+type Question {
+  id: ID!
+  content: String!
+  options: [Option!]!
+}
+
+type Survey {
+  id: ID!
+  title: String!
+  description: String!
+  created_at: DateTime!
+  updated_at: DateTime!
+  questions: [Question!]!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type Query {
+  surveys: [Survey!]!
   survey(id: Int!): Survey!
+  questions: [Question!]!
+  question(id: Int!): Question!
+  options: [Option!]!
+  option(id: Int!): Option!
+  responses: [Response!]!
+  response(id: Int!): Response!
 }
 
 type Mutation {
   createSurvey(createSurveyInput: CreateSurveyInput!): Survey!
   updateSurvey(updateSurveyInput: UpdateSurveyInput!): Survey!
-  removeSurvey(id: Int!): Survey!
+  deleteSurvey(id: Int!): Survey!
+  createQuestion(createQuestionInput: CreateQuestionInput!): Question!
+  updateQuestion(updateQuestionInput: UpdateQuestionInput!): Question!
+  deleteQuestion(id: Int!): Question!
+  createOption(createOptionInput: CreateOptionInput!): Option!
+  updateOption(updateOptionInput: UpdateOptionInput!): Option!
+  deleteOption(id: Int!): Option!
+  createResponse(optionId: Int!): Response!
+  updateResponse(id: Int!, optionId: Int!): Response!
+  deleteResponse(id: Int!): Response!
 }
 
 input CreateSurveyInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  title: String!
+  description: String!
 }
 
 input UpdateSurveyInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  title: String
+  description: String
+  id: Int!
+}
+
+input CreateQuestionInput {
+  """문항의 내용"""
+  content: String!
+
+  """설문지의 id"""
+  surveyId: Int!
+}
+
+input UpdateQuestionInput {
+  """문항의 내용"""
+  content: String
+
+  """설문지의 id"""
+  surveyId: Int
+  id: Int!
+}
+
+input CreateOptionInput {
+  """선택지의 내용"""
+  content: String!
+
+  """선택지의 점수"""
+  score: Int!
+
+  """문항의 id"""
+  questionId: Int!
+}
+
+input UpdateOptionInput {
+  """선택지의 내용"""
+  content: String
+
+  """선택지의 점수"""
+  score: Int
+
+  """문항의 id"""
+  questionId: Int
   id: Int!
 }

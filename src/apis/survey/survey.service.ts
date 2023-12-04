@@ -1,26 +1,67 @@
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+  Logger,
+} from '@nestjs/common';
 import { CreateSurveyInput } from './dto/create-survey.input';
 import { UpdateSurveyInput } from './dto/update-survey.input';
+import { SurveyRepository } from './survey.repository';
+import { checkEntity, handleServiceError } from 'src/utils/commonFunction';
 
 @Injectable()
 export class SurveyService {
-  create(createSurveyInput: CreateSurveyInput) {
-    return 'This action adds a new survey';
+  private readonly logger = new Logger(SurveyService.name);
+
+  constructor(private surveyRepository: SurveyRepository) {}
+
+  async createSurvey(createSurveyInput: CreateSurveyInput) {
+    try {
+      return await this.surveyRepository.createSurvey(createSurveyInput);
+    } catch (error) {
+      handleServiceError(this.logger, error, '설문지 생성에 실패했습니다.');
+    }
   }
 
-  findAll() {
-    return `This action returns all survey`;
+  async findAllSurveys() {
+    try {
+      return await this.surveyRepository.findAllSurveys();
+    } catch (error) {
+      handleServiceError(
+        this.logger,
+        error,
+        '설문지 전체 목록 조회에 실패했습니다.',
+      );
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} survey`;
+  async findSurvey(id: number) {
+    try {
+      return await this.surveyRepository.findByIdWithQuestions(id);
+    } catch (error) {
+      handleServiceError(this.logger, error, '설문지 조회에 실패했습니다.');
+    }
   }
 
-  update(id: number, updateSurveyInput: UpdateSurveyInput) {
-    return `This action updates a #${id} survey`;
+  async updateSurvey(id: number, updateSurveyInput: UpdateSurveyInput) {
+    try {
+      const survey = await checkEntity(this.surveyRepository, id, '설문지');
+
+      return await this.surveyRepository.updateSurvey(
+        survey,
+        updateSurveyInput,
+      );
+    } catch (error) {
+      handleServiceError(this.logger, error, '설문지 수정에 실패했습니다.');
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} survey`;
+  async deleteSurvey(id: number) {
+    try {
+      await checkEntity(this.surveyRepository, id, '설문지');
+      return await this.surveyRepository.deleteSurvey(id);
+    } catch (error) {
+      handleServiceError(this.logger, error, '설문지 삭제에 실패했습니다.');
+    }
   }
 }
