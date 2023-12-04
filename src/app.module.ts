@@ -17,11 +17,6 @@ import { ResponseModule } from './apis/response/response.module';
       cache: true,
       envFilePath: `.${process.env.NODE_ENV}.env`,
     }),
-    TypeOrmModule.forRootAsync({
-      inject: [ConfigService],
-      useFactory: async (configService: ConfigService) =>
-        await typeORMConfig(configService),
-    }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: 'src/utils/graphql/schema.gql',
@@ -30,6 +25,11 @@ import { ResponseModule } from './apis/response/response.module';
     QuestionModule,
     OptionModule,
     ResponseModule,
+    TypeOrmModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) =>
+        await typeORMConfig(configService),
+    }),
   ],
 })
 export class AppModule {}

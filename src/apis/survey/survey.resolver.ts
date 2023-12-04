@@ -22,6 +22,12 @@ export class SurveyResolver {
     return await this.surveyService.findAllSurveys();
   }
 
+  @Query(() => [Survey], { name: 'completedSurveys' })
+  async findCompletedSurveys() {
+    //완료된 설문지 조회
+    return await this.surveyService.findCompletedSurveys();
+  }
+
   @Query(() => Survey, { name: 'survey' })
   async findSurvey(@Args('id', { type: () => Int }) id: number) {
     // 설문지 개별 조회
@@ -32,7 +38,7 @@ export class SurveyResolver {
   async updateSurvey(
     @Args('updateSurveyInput') updateSurveyInput: UpdateSurveyInput,
   ) {
-    // 설문지 수정
+    // 설문지 수정 / 완료 체크
     return await this.surveyService.updateSurvey(
       updateSurveyInput.id,
       updateSurveyInput,
@@ -43,5 +49,10 @@ export class SurveyResolver {
   async deleteSurvey(@Args('id', { type: () => Int }) id: number) {
     // 설문지 삭제
     return await this.surveyService.deleteSurvey(id);
+  }
+
+  @Query(() => Int, { name: 'getSurveyScore' })
+  async getSurveyScore(@Args('id', { type: () => Int }) id: number) {
+    return this.surveyService.getSurveyScore(id);
   }
 }

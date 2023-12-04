@@ -3,6 +3,8 @@ import {
   Column,
   Entity,
   PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
@@ -14,6 +16,14 @@ export class Response {
   @PrimaryGeneratedColumn()
   @Field(() => ID)
   id: number;
+
+  @Field()
+  @CreateDateColumn()
+  created_at: Date;
+
+  @Field()
+  @UpdateDateColumn()
+  updated_at: Date;
 
   @ManyToOne(() => Option, (option) => option.responses)
   @JoinColumn({ name: 'option_id' })

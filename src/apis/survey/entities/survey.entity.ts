@@ -24,6 +24,10 @@ export class Survey {
   @Column({ nullable: false })
   description: string;
 
+  @Field({ nullable: false })
+  @Column({ nullable: false, default: false })
+  isCompleted: boolean;
+
   @Field()
   @CreateDateColumn()
   created_at: Date;

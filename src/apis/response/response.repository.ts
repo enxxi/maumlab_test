@@ -39,4 +39,11 @@ export class ResponseRepository extends Repository<Response> {
   async deleteResponse(id: number) {
     return await this.delete(id);
   }
+
+  async findByQuestionIds(questionIds: number[]) {
+    return this.createQueryBuilder('response')
+      .innerJoinAndSelect('response.option', 'option')
+      .where('option.question_id IN (:...questionIds)', { questionIds })
+      .getMany();
+  }
 }
