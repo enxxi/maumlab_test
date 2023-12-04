@@ -1,73 +1,114 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+## [ 마음연구소 백엔드 코딩 테스트 버전 3_이은석 ]
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+---
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+<br/>
+<details>
+  <summary>폴더구조</summary>
 
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Installation
-
-```bash
-$ npm install
+```jsx
+📦src
+ ┣ 📂apis
+ ┃ ┣ 📂option
+ ┃ ┃ ┣ 📂dto
+ ┃ ┃ ┣ 📂entities
+ ┃ ┃ ┣ 📜option.module.ts
+ ┃ ┃ ┣ 📜option.repository.ts
+ ┃ ┃ ┣ 📜option.resolver.ts
+ ┃ ┃ ┗ 📜option.service.ts
+ ┃ ┣ 📂question
+ ┃ ┃ ┣ 📂dto
+ ┃ ┃ ┣ 📂entities
+ ┃ ┃ ┣ 📜question.module.ts
+ ┃ ┃ ┣ 📜question.repository.ts
+ ┃ ┃ ┣ 📜question.resolver.ts
+ ┃ ┃ ┗ 📜question.service.ts
+ ┃ ┣ 📂response
+ ┃ ┃ ┣ 📂entities
+ ┃ ┃ ┣ 📜response.module.ts
+ ┃ ┃ ┣ 📜response.repository.ts
+ ┃ ┃ ┣ 📜response.resolver.ts
+ ┃ ┃ ┗ 📜response.service.ts
+ ┃ ┗ 📂survey
+ ┃ ┃ ┣ 📂dto
+ ┃ ┃ ┣ 📂entities
+ ┃ ┃ ┃ ┗ 📜survey.entity.ts
+ ┃ ┃ ┣ 📜survey.module.ts
+ ┃ ┃ ┣ 📜survey.repository.ts
+ ┃ ┃ ┣ 📜survey.resolver.ts
+ ┃ ┃ ┗ 📜survey.service.ts
+ ┣ 📂config
+ ┃ ┗ 📜typeorm.config.ts
+ ┣ 📂utils
+ ┃ ┣ 📂graphql
+ ┃ ┃ ┗ 📜schema.gql
+ ┃ ┣ 📂logger
+ ┃ ┃ ┗ 📜winston.util.ts
+ ┃ ┗ 📜commonFunction.ts
+ ┣ 📜app.module.ts
+ ┗ 📜main.ts
 ```
 
-## Running the app
+</details>
 
-```bash
-# development
-$ npm run start
+<details>
+  <summary>사용 기술 스택</summary>
 
-# watch mode
-$ npm run start:dev
+언어 및 사용 도구 <br/> ![NestJS](https://img.shields.io/badge/nestjs-%23E0234E.svg?style=for-the-badge&logo=nestjs&logoColor=white) ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+<br/>
+데이터 베이스 <br/>![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white) <br/>
 
-# production mode
-$ npm run start:prod
-```
+</details>
 
-## Test
+<br/>
 
-```bash
-# unit tests
-$ npm run test
+### 개발 서버 실행
 
-# e2e tests
-$ npm run test:e2e
+npm run start:dev
 
-# test coverage
-$ npm run test:cov
-```
+<br/>
 
-## Support
+## 기능 설명
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+1.  객관식 설문지의 데이터 베이스 [설계](https://www.erdcloud.com/d/TT2cH5YPJWCAyyapn): 설문지, 문항, 선택지, 답변 등을 관리하기 위한 관계형 데이터 모델을 설계하였습니다. 
 
-## Stay in touch
+<br/>
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+3.  설문지 CRUD: 설문지를 생성, 조회, 수정, 삭제할 수 있는 API 구현.
+   
+    - isCompleted 필드를 추가하여 설문지의 완료 여부를 체크했습니다.
+    - 설문지 조회 시, 설문지에 포함된 질문들을 함께 조회가 가능하게 구현하였습니다.
+    - 각 설문지의 답변 총점을 반환하는 API를 구현하였습니다.
+<br/>
 
-## License
+4.  문항 CRUD: 설문지 내의 문항에 대한 생성, 조회, 수정, 삭제 API 구현.
+    
+    - 잘못된 survey id에 대한 예외 처리를 구현하였습니다.
+    - 문항 조회 시, 문항에 포함된 선택지들과 함께 조회가 가능하게 구현하였습니다.
+<br/>
 
-Nest is [MIT licensed](LICENSE).
+5.  선택지 CRUD: 문항의 선택지에 대한 생성, 조회, 수정, 삭제 API 구현.
+
+    - 각 선택지는 점수를 가지며, 답변의 총점 계산에 사용됩니다.
+    - 잘못된 question id에 대한 예외 처리를 구현하였습니다.
+<br/>
+
+6.  답변 CRUD: 사용자의 답변에 대한 생성, 조회, 수정, 삭제 API 구현.
+<br />
+
+<img src="https://github.com/enxxi/maumlab_test/assets/101889199/d89efd9a-b3f6-4c97-b475-d080df858474.png"  width="200" height="300"/>
+
+
+<img src="https://github.com/enxxi/maumlab_test/assets/101889199/838175f7-ba56-4c11-afec-616e70d98135.png" width="200" height="300"/>
+
+6.  에러 처리: 만약 요청이 실패하면, 적절한 에러 메시지를 반환하도록 구현하였습니다. 공통 함수를 사용하여 일관된 형식의 에러를 반환할 수 있게 하였습니다.
+<br />
+
+7.  로그: 에러 또는 특이 사항 발생을 대비하기 위해 winston을 사용해 로깅을 설정하였습니다.
+<img src="https://github.com/enxxi/maumlab_test/assets/101889199/420ae0c0-85a7-45c0-b0bb-8c4df592440a.png" width="600" height="300"/>
+
+<br />
+
+9. 레포지토리 패턴을 사용하여 각 코드의 관심사를 분리하였습니다. 이를 통해 가독성과 유지보수성을 향상시켰습니다. 
+<br />
+
