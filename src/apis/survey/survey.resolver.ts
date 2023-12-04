@@ -53,6 +53,7 @@ export class SurveyResolver {
 
   @Query(() => Int, { name: 'getSurveyScore' })
   async getSurveyScore(@Args('id', { type: () => Int }) id: number) {
+    // 설문지 답변 총점 반환
     return this.surveyService.getSurveyScore(id);
   }
 }

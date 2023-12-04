@@ -1,9 +1,4 @@
-import {
-  Injectable,
-  Logger,
-  NotFoundException,
-  InternalServerErrorException,
-} from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { checkEntity, handleServiceError } from 'src/utils/commonFunction';
 import { ResponseRepository } from './response.repository';
 import { OptionRepository } from '../option/option.repository';

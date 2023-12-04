@@ -4,7 +4,6 @@ import * as winston from 'winston';
 import * as moment from 'moment-timezone';
 
 const env = process.env.NODE_ENV;
-console.log(env);
 
 const appendTimestamp = winston.format((info, opts) => {
   if (opts.tz) {

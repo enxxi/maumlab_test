@@ -1,9 +1,4 @@
-import {
-  Injectable,
-  InternalServerErrorException,
-  NotFoundException,
-  Logger,
-} from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { CreateSurveyInput } from './dto/create-survey.input';
 import { UpdateSurveyInput } from './dto/update-survey.input';
 import { SurveyRepository } from './survey.repository';
