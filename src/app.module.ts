@@ -28,8 +28,8 @@ import { ResponseModule } from './apis/response/response.module';
     }),
     SurveyModule,
     QuestionModule,
-    // OptionModule,
-    // ResponseModule,
+    OptionModule,
+    ResponseModule,
   ],
 })
 export class AppModule {}
