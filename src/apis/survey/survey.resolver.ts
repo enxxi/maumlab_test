@@ -10,6 +10,7 @@ export class SurveyResolver {
 
   @Mutation(() => Survey)
   async createSurvey(
+    //설문지 생성
     @Args('createSurveyInput') createSurveyInput: CreateSurveyInput,
   ) {
     return await this.surveyService.createSurvey(createSurveyInput);
@@ -17,18 +18,21 @@ export class SurveyResolver {
 
   @Query(() => [Survey], { name: 'surveys' })
   async findAllSurveys() {
+    //설문지 목록 조회
     return await this.surveyService.findAllSurveys();
   }
 
   @Query(() => Survey, { name: 'survey' })
-  findSurvey(@Args('id', { type: () => Int }) id: number) {
-    return this.surveyService.findSurvey(id);
+  async findSurvey(@Args('id', { type: () => Int }) id: number) {
+    // 설문지 개별 조회
+    return await this.surveyService.findSurvey(id);
   }
 
   @Mutation(() => Survey)
   async updateSurvey(
     @Args('updateSurveyInput') updateSurveyInput: UpdateSurveyInput,
   ) {
+    // 설문지 수정
     return await this.surveyService.updateSurvey(
       updateSurveyInput.id,
       updateSurveyInput,
@@ -37,6 +41,7 @@ export class SurveyResolver {
 
   @Mutation(() => Survey)
   async deleteSurvey(@Args('id', { type: () => Int }) id: number) {
+    // 설문지 삭제
     return await this.surveyService.deleteSurvey(id);
   }
 }

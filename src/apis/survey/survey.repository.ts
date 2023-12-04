@@ -6,19 +6,18 @@ import { UpdateSurveyInput } from './dto/update-survey.input';
 
 @Injectable()
 export class SurveyRepository extends Repository<Survey> {
-  constructor(private readonly dataSource: DataSource) {
+  constructor(private dataSource: DataSource) {
     super(Survey, dataSource.createEntityManager());
   }
 
   async createSurvey(createSurveyInput: CreateSurveyInput) {
     const survey = await this.create(createSurveyInput);
-    await await this.save(survey);
+    await this.save(survey);
     return survey;
   }
 
   async findById(id: number): Promise<Survey> {
-    const survey = await this.findOne({ where: { id } });
-    return survey;
+    return await this.findOne({ where: { id } });
   }
 
   async updateSurvey(survey, updateSurveyInput: UpdateSurveyInput) {
@@ -27,11 +26,19 @@ export class SurveyRepository extends Repository<Survey> {
     return await this.save(survey);
   }
 
-  async findAllSurveys() {
+  async findAllSurveys(): Promise<Survey[]> {
     return await this.find();
   }
 
-  async deleteSurvey(id) {
+  async findByIdWithQuestions(id: number): Promise<Survey> {
+    const survey = await this.findOne({
+      where: { id },
+      relations: ['questions'],
+    });
+    return survey;
+  }
+
+  async deleteSurvey(id: number) {
     return await this.delete(id);
   }
 }

@@ -6,17 +6,13 @@ import {
 } from '@nestjs/common';
 import { CreateSurveyInput } from './dto/create-survey.input';
 import { UpdateSurveyInput } from './dto/update-survey.input';
-import { InjectRepository } from '@nestjs/typeorm';
 import { SurveyRepository } from './survey.repository';
 
 @Injectable()
 export class SurveyService {
   private readonly logger = new Logger(SurveyService.name);
 
-  constructor(
-    @InjectRepository(SurveyRepository)
-    private surveyRepository: SurveyRepository,
-  ) {}
+  constructor(private surveyRepository: SurveyRepository) {}
 
   async createSurvey(createSurveyInput: CreateSurveyInput) {
     try {
@@ -42,7 +38,7 @@ export class SurveyService {
 
   async findSurvey(id: number) {
     try {
-      return await this.surveyRepository.findById(id);
+      return await this.surveyRepository.findByIdWithQuestions(id);
     } catch (error) {
       this.logger.error(`${error}`);
 
@@ -71,7 +67,7 @@ export class SurveyService {
   async deleteSurvey(id: number) {
     try {
       await this.checkSurvey(id);
-      return { message: '설문지 삭제에 성공하였습니다.' };
+      return await this.surveyRepository.deleteSurvey(id);
     } catch (error) {
       this.logger.error(`${error}`);
 
